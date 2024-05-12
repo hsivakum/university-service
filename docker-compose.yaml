@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  assignment:
+    image: postgres:latest
+    restart: always
+    container_name: assignment-db
+    platform: linux/arm64
+    env_file:
+      - docker-compose-local.env
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./:/docker-entrypoint-initdb.d
+      - assignment-volume:/var/lib/postgresql/data/
+    networks:
+      - assignment-network
+
+networks:
+  assignment-network:
+
+volumes:
+  assignment-volume:
